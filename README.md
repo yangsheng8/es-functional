@@ -1,1 +1,1 @@
-javascript 函数式编程
+javascript 函数式编程学习
