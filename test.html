@@ -7,8 +7,63 @@
     <title>Document</title>
 </head>
 <body>
-    var percentValue= 5;
-    var calculateTax= (value) =>{return value/100 * (100+percentValue)};
-    console.log("4");
+<script>
+//用声明式方法遍历数组
+var array= [1,2,3];
+array.forEach((element)=> console.log(element));
+
+//一个简单的纯函数
+var double = (value) => value * 2;
+
+
+
+/*========================并发代码====================================*/
+
+/*当并发执行 function1 和 function2 时，都依赖全局global 这样容易受影响*/
+let global = "something";
+let function1 =(input)=>{
+    //处理input
+    //改变 global
+    global = "somethingElse";
+}
+let function2 = ()=>{
+    if(global === "something"){
+        //业务逻辑
+    }
+}
+
+//纯函数
+/*纯函数，不必担心线程执行顺序*/
+// let function1 = (input,global) =>{
+//     //处理input
+//     //改变global
+//     global = "somethingElse";
+// }
+
+// let function2 = (global)=>{
+//     if(global === "something"){
+//         //业务逻辑
+//     }
+// }
+
+
+//通过纯函数缓存结果
+var longRunningFunction = (ip) =>{//执行长时间运行的任务并返回
+    var longRunningFnBookKeeper = {2:3,4:5}
+    //检查key 是否在longRunningFnBookKeeper中
+    //如果在，则返回结果，否则更新记账对象
+    longRunningFnBookKeeper.hasOwnProperty(ip)?longRunningFnBookKeeper[ip]:longRunningFnBookKeeper[ip]=longRunningFunction(ip);
+}
+
+
+/*===================================管道与组合=====================================*/
+/*使用纯函数，我们只需要在函数中做一件事，只做一件事并把它做到完美是UNIX的哲学，纯函数遵循这一原则。
+例如，cat 用于打印文件内容，grep 用于搜索文件，wc 用于计算行数等。这些命令的确一次只解决就一个问题，但是我们可以组合或管道来完成，例如我们要在一个文件中找到一个特定的名称并统计它的出现次数。
+命令如下：
+cat jsBook | grep -i "composing" | wc
+*/
+
+
+</script>
 </body>
 </html>
